@@ -1,0 +1,75 @@
+<ion-view title="Signup">  
+  <ion-content class="has-header" ng-controller="SignupCtrl">
+    
+    <form name="signupForm" ng-submit="createUser(formData)">
+    	<ul>
+    		<li class="item item-toggle">
+		     Registrarse como propietario
+		     <label class="toggle toggle-balanced">
+		       <input type="checkbox">
+		       <div class="track">
+		         <div class="handle"></div>
+		       </div>
+		     </label>
+		  	</li>
+		</ul>
+    	<div class="list">
+
+    	<!--
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Nombre del establecimiento</span>
+		    <input type="text" name="username" ng-model="formData.username" placeholder="Elige tu nombre de usuario">
+		  </label>
+
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">CIF</span>
+		    <input type="email" name="email" ng-model="formData.email" placeholder="B### ### ###">
+		  </label>
+
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Dirección</span>
+		    <input type="email" name="email" ng-model="formData.email" placeholder="Dirección exacta de la sede">
+		  </label>
+
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Correo electronico</span>
+		    <input type="email" name="email" ng-model="formData.email" placeholder="example@domain.com">
+		  </label>
+
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Telefono</span>
+		    <input type="email" name="email" ng-model="formData.email" placeholder="### ### ###">
+		  </label>-->
+
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Username</span>
+		    <input type="text" name="username" ng-model="formData.username" placeholder="Elige tu nombre de usuario">
+		  </label>
+
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Correo electronico</span>
+		    <input type="email" name="email" ng-model="formData.email" placeholder="example@domain.com">
+		  </label>
+		 
+		  <label class="item item-input">
+			<span class="input-label">Fecha de nacimiento</span>
+			<input type="date">
+		  </label>
+
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Contraseña</span>
+		    <input type="password" name="password" ng-model="formData.password" placeholder="********">
+		  </label>
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Repite contraseña</span>
+		    <input type="password" name="password" ng-model="formData.password" placeholder="********">
+		  </label>
+
+		  <button class="button button-small button-block icon-left ion-image button-stable">Añade tu imagen de perfil</button>
+
+		  <button type="submit" class="button button-block button-calm">Crear cuenta</button>
+		</div>
+    </form>
+
+  </ion-content>
+</ion-view>

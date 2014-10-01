@@ -2,79 +2,50 @@ var bodyParser = require('body-parser');
 
 module.exports = function(app, passport){	
 
-	// MIDDLEWARE to use for all requests, 
-// ----------------------------------------------------
-	app.use(function(req, res, next) {
-	// Se ejecuta antes y para todas las URLS.
-		
-		next(); // make sure we go to the next routes and don't stop here
-	});
+	// USER ROUTES
+	var users = require('./users/users.js');
+	app.post('/auth/users', users.createUser);
+	//	app.get('/auth/users/:userId', users.show);
+	app.get('/auth/friends');
+
+	// EVENT ROUTES
+	app.post('/auth/events', users.createEvent);
+	app.get('/auth/event/:eventId', users.getEvent);
+	app.get('/auth/events/:userId', users.getEvents);
+	app.put('/auth/event/addmember', users.addMember);
+
+	// SEARCH ROUTES
+	app.get('/search/users/:userName', users.getUserByUserName);
+	app.get('/search/users/:eventName', users.getEventByEventName);
+
+	app.get('/search/users/profile/:userId', users.getProfile);
+	app.put('/search/users/adduser', users.addContact);
+
+	// Check if username is available
+	// todo: probably should be a query on users
+	app.get('/auth/check_username/:username', users.exists);
+
+	// SESSION ROUTES
+	var session = require('../config/session');
+	app.get('/auth/session', isLoggedIn, session.session);
+	app.post('/auth/session', session.login);
+	app.delete('/auth/session', session.logout);	
 
 
-		// ROUTER OF '/'
-// ----------------------------------------------------
-	app.get('/', function(req, res) {
-		res.render('index.ejs');
-	});
-
-	// ROUTERS OF LOGGER '/login' '/signup' '/logout'
-// ----------------------------------------------------
-	// Muestra el formulario de login
-	app.get('/login', function(req, res){
-		res.render('login.ejs', {message: req.flash('loginMessage')});
-	});
-	// Muestra el formulario de signup
-	app.get('/signup', function(req, res){
-		res.render('signup.ejs', {message: ''});
-	});
-
-	app.get('/logout', function(req, res){
-		req.logout();
-		res.redirect('/');
-	});
-
-
-	app.post('/signup', passport.authenticate('local-signup', {			
-			successRedirect: '/profile',
-			failuerRedirect: '/signup',	
-			failuerFlash: true
-	}));
-	
-	
-	app.post('/login', passport.authenticate('local-login', {
-		successRedirect: '/profile',
-		failuerRedirect: '/login',
-		failuerFlash: true
-	}));
-
-	// ROUTERS AFTER LOGIN '/profile' '/diary' '/search'	
-// ----------------------------------------------------
-	
-	app.get('/profile', isLoggedIn, function(req, res){
-		
-		console.log(req.user);
-
-		res.render('profile.ejs', {
-			user : req.user
-		});
-		
+	// ANGULAR ROUTES
+	app.get('*', function(req, res) {
+		console.log('routes *');
+		res.send('../www/index.html'); // load the single view file (angular will handle the page changes on the front-end)
 	});
 
 	// FUNCIONES 
-// ----------------------------------------------------	
-
 	function isLoggedIn(req, res, next){
 		
 		if(req.isAuthenticated()){			
 			next();
 		}else
-			res.redirect('/');
+			res.send(401);
 	}
-
-	// ROUTERS OF '/users/' API (CRUD)
-// ----------------------------------------------------
-	var users = require('./users/users.js')(app, passport);
-	//app2.use('/users', users);
 
 
 };

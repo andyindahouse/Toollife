@@ -1,0 +1,31 @@
+<ion-view title="Añadir evento">  
+  <ion-content class="has-header" ng-controller="AddEventCtrl">
+    
+    <form name="addeventForm" ng-submit="createEvent(formData)">
+    	<div class="list">
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Titulo</span>
+		    <input type="text" name="title" ng-model="formData.title" placeholder="El titulo de tu evento">
+		  </label>
+
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Lugar</span>
+		    <input type="text" name="place" ng-model="formData.place" placeholder="Lugar del evento">
+		  </label>
+		  <label class="item item-input">
+			<span class="input-label">Fecha</span>
+			<input type="date" name="date" ng-model="formData.date">
+		  </label>
+		  <label class="item item-input item-stacked-label">
+		    <span class="input-label">Descripción</span>
+		    <textarea name="descrip" ng-model="formData.descrip" placeholder="Comments"></textarea>
+		  </label>
+
+		  <button class="button button-small button-block icon-left ion-image button-stable">Añadir una imagen al evento</button>
+
+		  <button type="submit" class="button button-block button-calm">Crear evento</button>
+		</div>
+    </form>
+
+  </ion-content>
+</ion-view>
