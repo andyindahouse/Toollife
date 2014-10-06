@@ -1,14 +1,13 @@
 
 
 // load all the things we need
-var localStrategy = require('passport-local').Strategy;
-
-var User = require('../models/user.js');
+var mongoose = require('mongoose'),
+	localStrategy = require('passport-local').Strategy,
+	User = require('../models/user');
 
 module.exports = function(passport){
 
 	// PASSPORT SESSION SETUP
-// ----------------------------------------------------------------
 	// passport needs ability to serialize and unserialize users out of session
 
 	// used to serialize the user for the session
@@ -34,12 +33,11 @@ module.exports = function(passport){
 		passwordField: 'password',
 		passReqToCallBack: true // allows us to pass back the entire request to the callback
 
-	}, function(email, password, done){
+	}, function(req, res, next, done){
 
-		
-		//UNDERCONSTRUCTION
-		//NO RECONOCE REQ AÚN TENIENDO PASSREQTOCALLBACK ACTIVADO.
-		
+		console.log('passport ejecutandose...');
+
+		console.log(req);		
 
 		// asynchronous
 		// User.findOne wont fire unless data is sent back
@@ -52,13 +50,12 @@ module.exports = function(passport){
 				return done(err);
 
 			if(user){                
-                return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                return done(null, false);
 			} else {
 
-				var newUser = new User();
-				newUser.local.email = email;
+				var newUser = new User(local);				
 				newUser.local.password = newUser.generateHash(password);
-				
+				newUser.local.pic = "ionic.png";
 				console.log(newUser);
 				
 				newUser.save(function(err){
@@ -78,23 +75,29 @@ module.exports = function(passport){
 	passport.use('local-login', new localStrategy({
 		// by default, localstrategy uses username y password, we will override with email
 		usernameField: 'email',
-		passwordField: 'password',
-		passReqToCallBack: true // allows us to pass back the entire request to the callback 
+		passwordField: 'password'
 
 	}, function(email, password, done){
-
-		// Busca un usuario con ese email sino existe lo crea
+		console.log('passport ejecutandose...');
 		User.findOne({'local.email': email}, function(err, user){
 
 			if(err)
 				return done(err);
 
 			if(!user)
-				return done(null, false, req.flash('loginMessage', 'No user found.'));
+				return done(null, false, {
+					'errors': {
+						'email': {type: 'Email is not registered'}
+					}
+				});
 			
 			if(!user.validPassword(password))
-				return	done(null, false, req.flash('loginMessage', 'Ooops! Wrong password.'));
-
+				return	done(null, false, {
+		          'errors': {
+		            'password': { type: 'Password is incorrect.' }
+		          }
+		        });
+			
 			return done(null, user);
 		});
 		

@@ -1,32 +1,35 @@
-// models/User.js
-// models/User.js
-// MODEL OF USER
-// ----------------------------------------------------------------
- 
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
-var Schema = mongoose.Schema;
+// models/user.js
+// MODELOS DE USUARIO 
+var mongoose = require('mongoose'),
+	bcrypt = require('bcrypt-nodejs'),
+	Schema = mongoose.Schema;
 
 var userSchema = new Schema({
 
-	eventos		:[{
-		nombre: String,
-		info: String,
-		creador: String,
-		fecha: Date
+	events		:[{
+		_id: String,
+		title: String,		
+		place: String,
+		date: Date,
+		pic: String
 	}],
 
-	contactos	:[{
-		nombre: String,
+	contacts	:[{
+		_id: String,
+		username: String,
+		state: String,
+		pic: String,
 		email: String
 	}],
 
 	local		:{
 		email: String,
 		password: String,
-
-		name : String, // tipo de dato cadena de caracteres
-    	birthdate : Date, // tipo de dato fecha
+		
+		username : String, // tipo de dato cadena de caracteres
+    	date : Date, // tipo de dato fecha
+		status: String, 
+		pic: String   	
     	//isAdmin : Boolean // tipo de dato buleano
 
 	},
@@ -53,6 +56,12 @@ var userSchema = new Schema({
 	}
     
 });
+
+userSchema
+	.virtual('user_info')
+	.get(function(){
+		return {'_id': this._id, 'username': this.username, 'email': this.email};
+	});
 
 userSchema.methods.age = function() {
     return ~~((Date.now() - this.birthdate) / (31557600000));
