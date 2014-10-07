@@ -1,0 +1,34 @@
+<ion-view title="Agenda" ng-controller="DiaryCtrl" >
+	
+  <ion-nav-buttons side="left">
+    <a class="button button-clear button-calm" href="#/add-event">Fecha</a>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="right">
+        <a class="button button-clear button-calm" href="#/tab/add-event">Añadir</a>
+  </ion-nav-buttons>
+
+	<!--<div class="bar bar-subheader">
+	  
+	  <div class="h2 title">Proximamente</div>	
+      
+	</div>	-->
+
+  <ion-content class="has-header" >
+  	<button class="button button-small button-block icon-left ion-clock button-calm">Proximamente</button>
+    <div class="list" ng-focus="expression">
+
+        <a ng-repeat="event in events" 
+           href="#/tab/diary/event/{{event._id}}"
+           class="item item-thumbnail-left">
+
+          <img src="img/events/{{event.pic}}">
+          <h2>{{ event.title }}</h2>
+          <h3>{{ event.place }}</h3>
+          <h3>{{ event.date}}</h3>
+        </a>
+
+    </div>
+    
+  </ion-content>
+</ion-view>

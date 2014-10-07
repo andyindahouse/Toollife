@@ -1,0 +1,27 @@
+
+  <ion-view title="{{userdetail.username}}" ng-controller="UserDetailCtrl">
+
+      <div class="bar bar-subheader">
+        <a class="button button-clear button-positive" href="#/add-event">Fecha</a>
+        <div class="h1 title">8 de Mayo</div>
+        <a class="button button-clear button-positive" href="#/add-event">Agregar</a>
+      </div>  
+
+      <ion-content class="has-header has-subheader">
+
+          <div class="list" ng-focus="expression">
+
+              <a ng-repeat="event in events" 
+                 href="#/{{event.id}}"
+                 class="item item-thumbnail-left">
+
+                <img src="img/ionic.png">
+                <h2>{{ event.title }}</h2>
+                <h3>{{ event.place }}</h3>
+                <h3>{{ event.date}}</h3>
+              </a>
+          </div>          
+
+      </ion-content>
+
+  </ion-view>

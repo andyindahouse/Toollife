@@ -1,0 +1,26 @@
+<ion-view title="Amigos" ng-controller="ContactsCtrl">
+
+  <div class="bar bar-subheader item-input-inset">
+        <label class="item-input-wrapper">
+            <i class="icon ion-ios7-search placeholder-icon"></i>
+            <input name="searchUser" type="search" placeholder="Buscar en Toollife" ng-model="searchUser" autocorrect="off" >
+            <button class="button button-clear" ng-click="clearSearch()">X</button>
+        </label>
+        <button class="button button-calm" ng-click="search()">Buscar</button>
+  </div>
+
+  <ion-content class="has-header has-subheader">
+
+    <ion-list>
+      <ion-item ng-repeat="contact in contacts" 
+                type="item-text-wrap" 
+                href="#/tab/contact/{{contact.id}}"
+                class="item-avatar">
+        <img src="img/users/{{contact.pic}}"/>     
+        <h2>{{contact.username}}</h2>
+        <p>{{contact.state}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+</ion-view>

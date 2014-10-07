@@ -1,0 +1,27 @@
+<ion-view title="Buscador" ng-controller="SearchCtrl">
+  <div class="bar bar-subheader item-input-inset">
+        <label class="item-input-wrapper">
+            <i class="icon ion-ios7-search placeholder-icon"></i>
+            <input name="searchUser" type="search" placeholder="Buscar eventos y usuarios" ng-model="key" autocorrect="off" >
+            <button class="button button-clear" ng-click="clearSearch()">X</button>
+        </label>
+        <button class="button button-calm" ng-click="findByKey()">Buscar</button>
+  </div>
+
+  <ion-content class="has-header has-subheader">
+
+  <button class="button button-small button-block icon-left ion-location button-calm">Eventos cercanos a tu posición</button>
+
+    <ion-list>
+      <ion-item ng-repeat="result in results" 
+                type="item-text-wrap" 
+                href="#/tab/search/{{result._id}}"
+                class="item-avatar">
+        <img src="img/{{result.type}}/{{result.pic}}"/>     
+        <h2>{{result.name}}</h2>
+        <p>{{result.subname}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  
+</ion-view>

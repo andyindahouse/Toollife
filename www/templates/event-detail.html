@@ -1,0 +1,47 @@
+  <ion-view title="{{eventdetail.title}}" ng-controller="EventDetailCtrl">
+
+      <ion-nav-buttons side="right"> 
+        <button class="button button-calm button-clear no-animation"
+                ng-click="next()" ng-if="slideIndex != 2">
+          Editar
+        </button>
+        
+      </ion-nav-buttons>
+
+      <ion-content class="has-header">
+
+          <div class="list card">
+
+            <div class="item item-avatar">
+              <img src="img/users/{{event.creator.pic}}">
+              <h2>{{event.title}}</h2>
+              <p>{{event.date}} <br> Creado por {{event.creator.username}} </p>
+            </div>
+
+            <div class="item tabs tabs-secondary tabs-icon-left">
+              <a class="tab-item" href="#/tab/diary/event/members/">
+                <i class="icon ion-person-stalker"></i>
+                Participantes
+              </a>            
+              <a class="tab-item" href="#">
+                <i class="icon ion-chatbox-working"></i>
+                Comentarios               
+              </a>
+              <a class="tab-item" href="#">
+                <i class="icon ion-stats-bars"></i>
+                Preguntas
+              </a>
+            </div>
+
+            <div class="item item-body">
+              <img class="full-image" src="img/events/{{event.pic}}">
+              <p>
+                {{event.descrip}}
+              </p>             
+            </div>
+
+          </div>
+
+      </ion-content>
+
+  </ion-view>
